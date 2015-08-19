@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.Preferences;
 using Android.App;
 using Java.Lang.Reflect;

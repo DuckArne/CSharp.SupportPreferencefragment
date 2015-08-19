@@ -14,7 +14,7 @@ namespace SupportPreference{
 
 		public Java.Lang.Object Invoke(Java.Lang.Object proxy, Method method, Java.Lang.Object[] args){
 		if(method.Name.Equals("onPreferenceTreeClick")){
-			return bool.Parse(_listener.OnPreferenceTreeClick((PreferenceScreen)args[0], (Preference)args[1]));
+			return _listener.OnPreferenceTreeClick((PreferenceScreen)args[0], (Preference)args[1]);
 		} else{
 			return null;
 		}

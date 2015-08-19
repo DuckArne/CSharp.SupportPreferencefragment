@@ -6,20 +6,17 @@ using Java.Interop;
 using Java.Lang;
 using Android.Content;
 
-
-using Java.Lang
-
 namespace SupportPreference{
-public class PreferenceManagerCompat {
+	public class PreferenceManagerCompat:Java.Lang.Object{
 
-		private static readonly string TAG = PreferenceManagerCompat.Class.SimpleName;
+		private static readonly string TAG = "PreferenceManagerCompat";
 
 		/**
      * Interface definition for a callback to be invoked when a
      * {@link Preference} in the hierarchy rooted at this {@link PreferenceScreen} is
      * clicked.
      */
-	public interface IOnPreferenceTreeClickListener {
+		public interface IOnPreferenceTreeClickListener{
 			/**
          * Called when a preference in the tree rooted at this
          * {@link PreferenceScreen} has been clicked.
@@ -32,22 +29,24 @@ public class PreferenceManagerCompat {
 			bool OnPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference);
 		}
 
-		static PreferenceManager NewInstance(Activity activity, int firstRequestCode) {
-			try {
-			Constructor<PreferenceManager> c = PreferenceManager.Class.GetDeclaredConstructor(typeof(Activity),typeof(int));
-				c.SetAccessible(true);
-				return c.NewInstance(activity, firstRequestCode);
-			} catch (Exception e) {
-				Console.WriteLine (TAG +" Couldn't call constructor PreferenceManager by reflection "+ e.Message);
-			}
-			return null;
+		static PreferenceManager NewInstance(Activity activity, int firstRequestCode){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+
+			Constructor c = cl.Class.GetDeclaredConstructor(Class.ForName("android.app.Activity"), Class.ForName("java.lang.Integer"));
+			c.Accessible = true;
+			return (PreferenceManager)c.NewInstance(activity, firstRequestCode);
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call constructor PreferenceManager by reflection " + e.Message);
+		}
+		return null;
 		}
 
 		/**
      * Sets the owning preference fragment
      */
-		static void SetFragment(PreferenceManager manager, PreferenceFragment fragment) {
-			// stub
+		static void SetFragment(PreferenceManager manager, PreferenceFragment fragment){
+		// stub
 		}
 
 		/**
@@ -56,22 +55,20 @@ public class PreferenceManagerCompat {
      * 
      * @param listener The callback to be invoked.
      */
-		static void SetOnPreferenceTreeClickListener(PreferenceManager manager,  IOnPreferenceTreeClickListener listener) {
-			try {
-				Field onPreferenceTreeClickListener = PreferenceManager.Class.GetDeclaredField("mOnPreferenceTreeClickListener");
-				onPreferenceTreeClickListener.SetAccessible(true);
-				if (listener != null) {
-					Java.Lang.Object proxy = Proxy.NewProxyInstance(
-						onPreferenceTreeClickListener.Type.ClassLoader,
-						new Class[] { onPreferenceTreeClickListener.GetType() },
-						new MyInvocationHandler(listener));
-					onPreferenceTreeClickListener.Set(manager, proxy);
-				} else{
-					onPreferenceTreeClickListener.Set(manager, null);
-				}
-			} catch(System.Exception e) {
-				Console.WriteLine(TAG+ " Couldn't set PreferenceManager.mOnPreferenceTreeClickListener by reflection "+ e.Message);
+		static void SetOnPreferenceTreeClickListener(PreferenceManager manager, IOnPreferenceTreeClickListener listener){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Field onPreferenceTreeClickListener = cl.Class.GetDeclaredField("mOnPreferenceTreeClickListener");
+			onPreferenceTreeClickListener.Accessible = true;
+			if(listener != null){
+				Java.Lang.Object proxy = Proxy.NewProxyInstance(onPreferenceTreeClickListener.Type.ClassLoader, new Class[] { onPreferenceTreeClickListener.Class }, new MyInvocationHandler(listener));
+				onPreferenceTreeClickListener.Set(manager, proxy);
+			} else{
+				onPreferenceTreeClickListener.Set(manager, null);
 			}
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't set PreferenceManager.mOnPreferenceTreeClickListener by reflection " + e.Message);
+		}
 		}
 
 		/**
@@ -89,17 +86,18 @@ public class PreferenceManagerCompat {
      * @return The root hierarchy (if one was not provided, the new hierarchy's
      *         root).
      */
-		static PreferenceScreen InflateFromIntent(PreferenceManager manager, Intent intent, PreferenceScreen screen) {
+		static PreferenceScreen InflateFromIntent(PreferenceManager manager, Intent intent, PreferenceScreen screen){
 
-		try {
-				Method m = PreferenceManager.Class.GetDeclaredMethod("inflateFromIntent", typeof(Intent), typeof(PreferenceScreen));
-				m.SetAccessible(true);
-				PreferenceScreen prefScreen = (PreferenceScreen) m.Invoke(manager, intent, screen);
-				return prefScreen;
-			} catch (System.Exception e) {
-						Console.WriteLine(TAG+" Couldn't call PreferenceManager.inflateFromIntent by reflection "+ e.Message);
-			}
-			return null;
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("inflateFromIntent", Class.FromType(typeof(Intent)), Class.FromType(typeof(PreferenceScreen)));
+			m.Accessible = true;
+			PreferenceScreen prefScreen = (PreferenceScreen)m.Invoke(manager, intent, screen);
+			return prefScreen;
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.inflateFromIntent by reflection " + e.Message);
+		}
+		return null;
 		}
 
 		/**
@@ -114,16 +112,17 @@ public class PreferenceManagerCompat {
      *         root).
      * @hide
      */
-		static PreferenceScreen InflateFromResource(PreferenceManager manager, Activity activity, int resId, PreferenceScreen screen) {
-			try {
-							Method m = PreferenceManager.Class.GetDeclaredMethod("inflateFromResource", typeof(Context), typeof(int), typeof(PreferenceScreen));
-				m.SetAccessible(true);
-				PreferenceScreen prefScreen = (PreferenceScreen) m.Invoke(manager, activity, resId, screen);
-				return prefScreen;
-			} catch (System.Exception e) {
-									Console.WriteLine(TAG+ " Couldn't call PreferenceManager.inflateFromResource by reflection "+e.Message);
-			}
-			return null;
+		static PreferenceScreen InflateFromResource(PreferenceManager manager, Activity activity, int resId, PreferenceScreen screen){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("inflateFromResource", Class.FromType(typeof(Context)), Class.FromType(typeof(Java.Lang.Integer)), Class.FromType(typeof(PreferenceScreen)));
+			m.Accessible = true;
+			PreferenceScreen prefScreen = (PreferenceScreen)m.Invoke(manager, activity, resId, screen);
+			return prefScreen;
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.inflateFromResource by reflection " + e.Message);
+		}
+		return null;
 		}
 
 		/**
@@ -131,56 +130,60 @@ public class PreferenceManagerCompat {
      *  
      * @return The {@link PreferenceScreen} object that is at the root of the hierarchy.
      */
-		static PreferenceScreen GetPreferenceScreen(PreferenceManager manager) {
-			try {
-				Method m = PreferenceManager.Class.GetDeclaredMethod("getPreferenceScreen");
-				m.SetAccessible(true);
-				return (PreferenceScreen) m.Invoke(manager);
-			} catch (System.Exception e) {
-										Console.WriteLine(TAG +" Couldn't call PreferenceManager.getPreferenceScreen by reflection "+ e.Message);
-			}
-			return null;
+		static PreferenceScreen GetPreferenceScreen(PreferenceManager manager){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("getPreferenceScreen");
+			m.Accessible = true;
+			return (PreferenceScreen)m.Invoke(manager);
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.getPreferenceScreen by reflection " + e.Message);
+		}
+		return null;
 		}
 
 		/**
      * Called by the {@link PreferenceManager} to dispatch a subactivity result.
      */
-		static void DispatchActivityResult(PreferenceManager manager, int requestCode, int resultCode, Intent data) {
-			try {
-										Method m = PreferenceManager.Class.GetDeclaredMethod("dispatchActivityResult", typeof(int), typeof(int), typeof(Intent));
-				m.SetAccessible(true);
-				m.Invoke(manager, requestCode, resultCode, data);
-			} catch (System.Exception e) {
-												Console.WriteLine(TAG + " Couldn't call PreferenceManager.dispatchActivityResult by reflection "+e.Message);
-			}
+		static void DispatchActivityResult(PreferenceManager manager, int requestCode, int resultCode, Intent data){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("dispatchActivityResult", Class.FromType(typeof(Java.Lang.Integer)), Class.FromType(typeof(Java.Lang.Integer)), Class.FromType(typeof(Intent)));
+			m.Accessible = true;
+			m.Invoke(manager, requestCode, resultCode, data);
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.dispatchActivityResult by reflection " + e.Message);
+		}
 		}
 
 		/**
      * Called by the {@link PreferenceManager} to dispatch the activity stop
      * event.
      */
-		static void DispatchActivityStop(PreferenceManager manager) {
-			try {
-				Method m = PreferenceManager.Class.GetDeclaredMethod("dispatchActivityStop");
-				m.SetAccessible(true);
-				m.Invoke(manager);
-			} catch (System.Exception e) {
-				Console.WriteLine(TAG +" Couldn't call PreferenceManager.dispatchActivityStop by reflection " +e.Message);
-			}
+		static void DispatchActivityStop(PreferenceManager manager){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("dispatchActivityStop");
+			m.Accessible = true;
+			m.Invoke(manager);
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.dispatchActivityStop by reflection " + e.Message);
+		}
 		}
 
 		/**
      * Called by the {@link PreferenceManager} to dispatch the activity destroy
      * event.
      */
-		static void DispatchActivityDestroy(PreferenceManager manager) {
-			try {
-				Method m = PreferenceManager.Class.GetDeclaredMethod("dispatchActivityDestroy");
-				m.SetAccessible(true);
-				m.Invoke(manager);
-			} catch (System.Exception e) {
-				Console.WriteLine(TAG+  " Couldn't call PreferenceManager.dispatchActivityDestroy by reflection "+e.Message);
-			}
+		static void DispatchActivityDestroy(PreferenceManager manager){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("dispatchActivityDestroy");
+			m.Accessible = true;
+			m.Invoke(manager);
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.dispatchActivityDestroy by reflection " + e.Message);
+		}
 		}
 
 		/**
@@ -189,15 +192,16 @@ public class PreferenceManagerCompat {
      * @param preferenceScreen The root {@link PreferenceScreen} of the preference hierarchy.
      * @return Whether the {@link PreferenceScreen} given is different than the previous. 
      */
-		static bool SetPreferences(PreferenceManager manager, PreferenceScreen screen) {
-			try {
-				Method m = PreferenceManager.Class.GetDeclaredMethod("setPreferences", typeof(PreferenceScreen));
-				m.SetAccessible(true);
-				return ((bool) m.Invoke(manager, screen));
-			} catch (System.Exception e) {
-				Console.WriteLine(TAG+" Couldn't call PreferenceManager.setPreferences by reflection "+e.Message);
-			}
-			return false;
+		static bool SetPreferences(PreferenceManager manager, PreferenceScreen screen){
+		try{
+			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
+			Method m = cl.Class.GetDeclaredMethod("setPreferences", Class.FromType(typeof(PreferenceScreen)));
+			m.Accessible = true;
+			return ((bool)m.Invoke(manager, screen));
+		} catch(System.Exception e){
+			Console.WriteLine(TAG + " Couldn't call PreferenceManager.setPreferences by reflection " + e.Message);
+		}
+		return false;
 		}
 
 	}
