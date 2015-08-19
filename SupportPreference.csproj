@@ -45,6 +45,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="SupportPreferenceFragment.cs" />
     <Compile Include="PreferenceManagerCompat.cs" />
+    <Compile Include="MyInvocationHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
