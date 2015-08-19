@@ -13,7 +13,7 @@ namespace SupportPreference{
 		}
 
 		public Java.Lang.Object Invoke(Java.Lang.Object proxy, Method method, Java.Lang.Object[] args){
-		if(method.Name.Equals("onPreferenceTreeClick")){
+		if(method.Name.Equals("OnPreferenceTreeClick")){
 			return _listener.OnPreferenceTreeClick((PreferenceScreen)args[0], (Preference)args[1]);
 		} else{
 			return null;
