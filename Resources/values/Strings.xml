@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="library_name">SupportPreference</string>
+	  <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <string name="back_button_label">Bakåt</string>
+    <string name="next_button_label">Nästa</string>
+
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Hoppa över</string>
 </resources>

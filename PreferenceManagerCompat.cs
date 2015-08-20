@@ -29,7 +29,7 @@ namespace SupportPreference{
 			bool OnPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference);
 		}
 
-		static PreferenceManager NewInstance(Activity activity, int firstRequestCode){
+		public	static PreferenceManager NewInstance(Activity activity, int firstRequestCode){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 
@@ -45,7 +45,7 @@ namespace SupportPreference{
 		/**
      * Sets the owning preference fragment
      */
-		static void SetFragment(PreferenceManager manager, PreferenceFragment fragment){
+		public	static void SetFragment(PreferenceManager manager, PreferenceFragment fragment){
 		// stub
 		}
 
@@ -55,7 +55,7 @@ namespace SupportPreference{
      * 
      * @param listener The callback to be invoked.
      */
-		static void SetOnPreferenceTreeClickListener(PreferenceManager manager, IOnPreferenceTreeClickListener listener){
+		public	static void SetOnPreferenceTreeClickListener(PreferenceManager manager, IOnPreferenceTreeClickListener listener){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Field onPreferenceTreeClickListener = cl.Class.GetDeclaredField("mOnPreferenceTreeClickListener");
@@ -86,7 +86,7 @@ namespace SupportPreference{
      * @return The root hierarchy (if one was not provided, the new hierarchy's
      *         root).
      */
-		static PreferenceScreen InflateFromIntent(PreferenceManager manager, Intent intent, PreferenceScreen screen){
+		public	static PreferenceScreen InflateFromIntent(PreferenceManager manager, Intent intent, PreferenceScreen screen){
 
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
@@ -112,7 +112,7 @@ namespace SupportPreference{
      *         root).
      * @hide
      */
-		static PreferenceScreen InflateFromResource(PreferenceManager manager, Activity activity, int resId, PreferenceScreen screen){
+		public	static PreferenceScreen InflateFromResource(PreferenceManager manager, Activity activity, int resId, PreferenceScreen screen){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Method m = cl.Class.GetDeclaredMethod("inflateFromResource", Class.FromType(typeof(Context)), Class.FromType(typeof(Java.Lang.Integer)), Class.FromType(typeof(PreferenceScreen)));
@@ -130,7 +130,7 @@ namespace SupportPreference{
      *  
      * @return The {@link PreferenceScreen} object that is at the root of the hierarchy.
      */
-		static PreferenceScreen GetPreferenceScreen(PreferenceManager manager){
+		public	static PreferenceScreen GetPreferenceScreen(PreferenceManager manager){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Method m = cl.Class.GetDeclaredMethod("getPreferenceScreen");
@@ -145,12 +145,12 @@ namespace SupportPreference{
 		/**
      * Called by the {@link PreferenceManager} to dispatch a subactivity result.
      */
-		static void DispatchActivityResult(PreferenceManager manager, int requestCode, int resultCode, Intent data){
+		public	static void DispatchActivityResult(PreferenceManager manager, int requestCode, int resultCode, Intent data){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Method m = cl.Class.GetDeclaredMethod("dispatchActivityResult", Class.FromType(typeof(Java.Lang.Integer)), Class.FromType(typeof(Java.Lang.Integer)), Class.FromType(typeof(Intent)));
 			m.Accessible = true;
-			m.Invoke(manager, requestCode, resultCode, data);
+			m.Invoke(manager, requestCode, (Java.Lang.Integer)resultCode, data);
 		} catch(System.Exception e){
 			Console.WriteLine(TAG + " Couldn't call PreferenceManager.dispatchActivityResult by reflection " + e.Message);
 		}
@@ -160,7 +160,7 @@ namespace SupportPreference{
      * Called by the {@link PreferenceManager} to dispatch the activity stop
      * event.
      */
-		static void DispatchActivityStop(PreferenceManager manager){
+		public	static void DispatchActivityStop(PreferenceManager manager){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Method m = cl.Class.GetDeclaredMethod("dispatchActivityStop");
@@ -175,7 +175,7 @@ namespace SupportPreference{
      * Called by the {@link PreferenceManager} to dispatch the activity destroy
      * event.
      */
-		static void DispatchActivityDestroy(PreferenceManager manager){
+		public	static void DispatchActivityDestroy(PreferenceManager manager){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Method m = cl.Class.GetDeclaredMethod("dispatchActivityDestroy");
@@ -192,7 +192,7 @@ namespace SupportPreference{
      * @param preferenceScreen The root {@link PreferenceScreen} of the preference hierarchy.
      * @return Whether the {@link PreferenceScreen} given is different than the previous. 
      */
-		static bool SetPreferences(PreferenceManager manager, PreferenceScreen screen){
+		public	static bool SetPreferences(PreferenceManager manager, PreferenceScreen screen){
 		try{
 			Class cl = Java.Lang.Class.FromType(typeof(PreferenceManager));
 			Method m = cl.Class.GetDeclaredMethod("setPreferences", Class.FromType(typeof(PreferenceScreen)));

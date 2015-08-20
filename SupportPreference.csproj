@@ -53,6 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\dimens.xml" />
+    <AndroidResource Include="Resources\values-sw320dp\dimens.xml" />
+    <AndroidResource Include="Resources\values-v21\dimens.xml" />
+    <AndroidResource Include="Resources\values-w720dp\dimens.xml" />
+    <AndroidResource Include="Resources\Layout\preference_list_fragment.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\values-sw320dp\" />
+    <Folder Include="Resources\values-v21\" />
+    <Folder Include="Resources\values-w720dp\" />
+    <Folder Include="Resources\Layout\" />
+  </ItemGroup>
 </Project>

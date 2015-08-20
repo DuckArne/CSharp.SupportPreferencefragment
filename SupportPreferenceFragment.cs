@@ -135,7 +135,7 @@ namespace SupportPreference{
 
 		public override void OnActivityResult(int requestCode, Android.App.Result resultCode, Intent data){
 		base.OnActivityResult(requestCode, resultCode, data);
-		PreferenceManagerCompat.DispatchActivityResult(mPreferenceManager, requestCode, resultCode, data);
+		PreferenceManagerCompat.DispatchActivityResult(mPreferenceManager, requestCode, (int)resultCode, data);
 		}
 
 		/**
