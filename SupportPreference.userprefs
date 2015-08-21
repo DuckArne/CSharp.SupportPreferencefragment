@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="SupportPreference.csproj" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.ItemProperties.SupportPreference AndroidDesignerPreferredDevice="Nexus 4" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.42f744520d53bf05" />
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="../MParsePCL/MParsePCL/MParse.cs" line="163" offsetX="603" offsetY="2430" expression="jSon" liveUpdate="False" />
+    <Watch file="../../Documents/BtoTidrapport_android/SkrivTidFragment.cs" line="31" offsetX="704" offsetY="450" expression="v" liveUpdate="False" />
+    <Watch file="../../Documents/BtoTidrapportCorePCL/WebSyncHandlingPCL/ServiceSkrivtid.cs" line="148" offsetX="618" offsetY="2205" expression="jsonString" liveUpdate="True" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+</Properties>
