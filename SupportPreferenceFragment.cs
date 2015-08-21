@@ -13,7 +13,8 @@ using SupportFragment = Android.Support.V4.App.Fragment;
 
 namespace SupportPreference
 {
-	public class SupportPreferenceFragment: SupportFragment, PreferenceManagerCompat.IOnPreferenceTreeClickListener
+	
+	public class SupportPreferenceFragment: SupportFragment, PreferenceManagerCompat.IOnPreferenceTreeClickListener,PreferenceManagerCompat.IOnActivityDestroyListener
 	{
 		private static readonly string PREFERENCES_TAG = "android:preferences";
 
@@ -33,11 +34,9 @@ namespace SupportPreference
 
 		Action MRequestFocus;
 
+		#region IOnActivityDestroyListener implementation
 
-			
-	
-
-
+		#endregion
 
 		/**
      * Interface that PreferenceFragment's containing activity should
@@ -103,15 +102,17 @@ namespace SupportPreference
 		public override void OnStart ()
 		{
 			base.OnStart ();
-			PreferenceManagerCompat.SetOnPreferenceTreeClickListener (mPreferenceManager, this);
+		
+			//FIXME PreferenceManagerCompat.SetOnPreferenceTreeClickListener (mPreferenceManager, this);
 		}
 
 	
 		public  override void OnStop ()
 		{
+			
 			base.OnStop ();
 			PreferenceManagerCompat.DispatchActivityStop (mPreferenceManager);
-			PreferenceManagerCompat.SetOnPreferenceTreeClickListener (mPreferenceManager, null);
+			//FIXME PreferenceManagerCompat.SetOnPreferenceTreeClickListener (mPreferenceManager, null);
 		}
 
 
@@ -127,6 +128,7 @@ namespace SupportPreference
 		public override void OnDestroy ()
 		{
 			base.OnDestroy ();
+		
 			PreferenceManagerCompat.DispatchActivityDestroy (mPreferenceManager);
 		}
 
@@ -160,8 +162,8 @@ namespace SupportPreference
 			return mPreferenceManager;
 		}
 
-		// public PreferenceManager PreferenceManager { get { return mPreferenceManager; } }
-	
+		public PreferenceManager PreferenceManager { get { return mPreferenceManager; } }
+
 		/**
      * Sets the root of the preference hierarchy that this fragment is showing.
      *
@@ -170,6 +172,7 @@ namespace SupportPreference
 
 		public void SetPreferenceScreen (PreferenceScreen preferenceScreen)
 		{
+			
 			if (PreferenceManagerCompat.SetPreferences (mPreferenceManager, preferenceScreen) && preferenceScreen != null) {
 				mHavePrefs = true;
 				if (mInitDone) {
@@ -231,8 +234,6 @@ namespace SupportPreference
      */
 		public bool OnPreferenceTreeClick (PreferenceScreen preferenceScreen, Preference preference)
 		{
-			
-	
 			if (Activity is IOnPreferenceStartFragmentCallback) {
 				return ((IOnPreferenceStartFragmentCallback)Activity).OnPreferenceStartFragment (this, preference);
 			}

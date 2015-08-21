@@ -5,6 +5,9 @@ using Java.Lang.Reflect;
 using Java.Interop;
 using Java.Lang;
 using Android.Content;
+using Android.Runtime;
+
+using Android.OS;
 
 namespace SupportPreference
 {
@@ -13,6 +16,20 @@ namespace SupportPreference
 
 		private static readonly string TAG = "PreferenceManagerCompat";
 
+
+
+
+
+
+
+		public interface IOnActivityDestroyListener
+		{
+			void OnActivityDestroy ();
+		}
+
+
+
+
 		/**
      * Interface definition for a callback to be invoked when a
      * {@link Preference} in the hierarchy rooted at this {@link PreferenceScreen} is
@@ -20,6 +37,12 @@ namespace SupportPreference
      */
 		public interface IOnPreferenceTreeClickListener
 		{
+			
+
+			
+
+			
+
 			/**
          * Called when a preference in the tree rooted at this
          * {@link PreferenceScreen} has been clicked.
@@ -36,8 +59,7 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-
-				Constructor c = cl.Class.GetDeclaredConstructor (Class.ForName ("android.app.Activity"), Class.ForName ("java.lang.Integer"));
+				Constructor c = cl.GetConstructor (Class.FromType (typeof(Activity)), Java.Lang.Integer.Type);
 				c.Accessible = true;
 				return (PreferenceManager)c.NewInstance (activity, firstRequestCode);
 			} catch (System.Exception e) {
@@ -62,19 +84,22 @@ namespace SupportPreference
      */
 		public	static void SetOnPreferenceTreeClickListener (PreferenceManager manager, IOnPreferenceTreeClickListener listener)
 		{
-			try {
-				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Field onPreferenceTreeClickListener = cl.Class.GetDeclaredField ("mOnPreferenceTreeClickListener");
-				onPreferenceTreeClickListener.Accessible = true;
-				if (listener != null) {
-					Java.Lang.Object proxy = Proxy.NewProxyInstance (onPreferenceTreeClickListener.Type.ClassLoader, new Class[] { onPreferenceTreeClickListener.Class }, new MyInvocationHandler (listener));
-					onPreferenceTreeClickListener.Set (manager, proxy);
-				} else {
-					onPreferenceTreeClickListener.Set (manager, null);
-				}
-			} catch (System.Exception e) {
-				Console.WriteLine (TAG + " Couldn't set PreferenceManager.mOnPreferenceTreeClickListener by reflection " + e.Message);
-			}
+			//FIXME How Should this Happen??? I dont need it so i leave it..
+//			try {                
+//				
+//				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
+//				Field onPreferenceTreeClickListener = cl.GetDeclaredField ("mOnPreferenceTreeClickListener");
+//				onPreferenceTreeClickListener.Accessible = true;
+//				if (listener != null) {
+//					
+//					Java.Lang.Object proxy = Proxy.NewProxyInstance (manager.Class.ClassLoader, new Class[] { Class.FromType (typeof(PreferenceManagerCompat).GetInterface ("IOnPreferenceTreeClickListener"))  }, new MyInvocationHandler (listener));
+//					onPreferenceTreeClickListener.Set (manager, proxy);
+//				} else {
+//					onPreferenceTreeClickListener.Set (manager, null);
+//				}
+//			} catch (System.Exception e) {
+//				Console.WriteLine (TAG + " Couldn't set PreferenceManager.mOnPreferenceTreeClickListener by reflection " + e.Message);
+//			}
 		}
 
 		/**
@@ -97,7 +122,7 @@ namespace SupportPreference
 
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("inflateFromIntent", Class.FromType (typeof(Intent)), Class.FromType (typeof(PreferenceScreen)));
+				Method m = cl.GetDeclaredMethod ("inflateFromIntent", Class.FromType (typeof(Intent)), Class.FromType (typeof(PreferenceScreen)));
 				m.Accessible = true;
 				PreferenceScreen prefScreen = (PreferenceScreen)m.Invoke (manager, intent, screen);
 				return prefScreen;
@@ -123,7 +148,7 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("inflateFromResource", Class.FromType (typeof(Context)), Class.FromType (typeof(Java.Lang.Integer)), Class.FromType (typeof(PreferenceScreen)));
+				Method m = cl.GetDeclaredMethod ("inflateFromResource", Class.FromType (typeof(Context)), Java.Lang.Integer.Type, Class.FromType (typeof(PreferenceScreen)));
 				m.Accessible = true;
 				PreferenceScreen prefScreen = (PreferenceScreen)m.Invoke (manager, activity, resId, screen);
 				return prefScreen;
@@ -142,7 +167,7 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("getPreferenceScreen");
+				Method m = cl.GetDeclaredMethod ("getPreferenceScreen");
 				m.Accessible = true;
 				return (PreferenceScreen)m.Invoke (manager);
 			} catch (System.Exception e) {
@@ -158,9 +183,9 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("dispatchActivityResult", Class.FromType (typeof(Java.Lang.Integer)), Class.FromType (typeof(Java.Lang.Integer)), Class.FromType (typeof(Intent)));
+				Method m = cl.GetDeclaredMethod ("dispatchActivityResult", Java.Lang.Integer.Type, Java.Lang.Integer.Type, Class.FromType (typeof(Intent)));
 				m.Accessible = true;
-				m.Invoke (manager, requestCode, (Java.Lang.Integer)resultCode, data);
+				m.Invoke (manager, requestCode, resultCode, data);
 			} catch (System.Exception e) {
 				Console.WriteLine (TAG + " Couldn't call PreferenceManager.dispatchActivityResult by reflection " + e.Message);
 			}
@@ -174,13 +199,16 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("dispatchActivityStop");
+				Method m = cl.GetDeclaredMethod ("dispatchActivityStop");
 				m.Accessible = true;
 				m.Invoke (manager);
 			} catch (System.Exception e) {
 				Console.WriteLine (TAG + " Couldn't call PreferenceManager.dispatchActivityStop by reflection " + e.Message);
 			}
+		
 		}
+
+
 
 		/**
      * Called by the {@link PreferenceManager} to dispatch the activity destroy
@@ -190,7 +218,7 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("dispatchActivityDestroy");
+				Method m = cl.GetDeclaredMethod ("dispatchActivityDestroy");
 				m.Accessible = true;
 				m.Invoke (manager);
 			} catch (System.Exception e) {
@@ -208,7 +236,7 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Method m = cl.Class.GetDeclaredMethod ("setPreferences", Class.FromType (typeof(PreferenceScreen)));
+				Method m = cl.GetDeclaredMethod ("setPreferences", Class.FromType (typeof(PreferenceScreen)));
 				m.Accessible = true;
 				return ((bool)m.Invoke (manager, screen));
 			} catch (System.Exception e) {
