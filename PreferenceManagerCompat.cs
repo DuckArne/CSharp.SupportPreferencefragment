@@ -22,10 +22,7 @@ namespace SupportPreference
 
 
 
-		public interface IOnActivityDestroyListener
-		{
-			void OnActivityDestroy ();
-		}
+	
 
 
 

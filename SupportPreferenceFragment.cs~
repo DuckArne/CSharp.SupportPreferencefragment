@@ -14,8 +14,10 @@ using SupportFragment = Android.Support.V4.App.Fragment;
 namespace SupportPreference
 {
 	
-	public class SupportPreferenceFragment: SupportFragment, PreferenceManagerCompat.IOnPreferenceTreeClickListener,PreferenceManagerCompat.IOnActivityDestroyListener
+	public class SupportPreferenceFragment: SupportFragment, PreferenceManagerCompat.IOnPreferenceTreeClickListener
 	{
+		
+
 		private static readonly string PREFERENCES_TAG = "android:preferences";
 
 		private PreferenceManager mPreferenceManager;
@@ -23,6 +25,8 @@ namespace SupportPreference
 		private bool mHavePrefs;
 		private bool mInitDone;
 		private MyPreferenceFragmentHandler mHandler;
+
+		public static event EventHandler OnActivityDestroy;
 
 		/**
      * The starting request code given out to preference framework.
@@ -34,9 +38,10 @@ namespace SupportPreference
 
 		Action MRequestFocus;
 
-		#region IOnActivityDestroyListener implementation
 
-		#endregion
+
+	
+
 
 		/**
      * Interface that PreferenceFragment's containing activity should
@@ -55,7 +60,14 @@ namespace SupportPreference
 			bool OnPreferenceStartFragment (SupportPreferenceFragment caller, Preference pref);
 		}
 
-	
+		private static void ActivityDestroy ()
+		{
+			var handler = OnActivityDestroy;
+			if (handler != null) {
+				handler (typeof(SupportPreferenceFragment), EventArgs.Empty);
+			}
+		}
+
 		public override void OnCreate (Bundle paramBundle)
 		{
 			base.OnCreate (paramBundle);
@@ -266,6 +278,7 @@ namespace SupportPreference
 		{
 			if (mHandler.HasMessages (MSG_BIND_PREFERENCES))
 				return;
+			
 			mHandler.ObtainMessage (MSG_BIND_PREFERENCES).SendToTarget ();
 		}
 
