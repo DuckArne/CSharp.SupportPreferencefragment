@@ -64,6 +64,7 @@ namespace SupportPreference
 		{
 			var handler = OnActivityDestroy;
 			if (handler != null) {
+				Console.WriteLine (SupportPreferenceFragment.OnActivityDestroy.ToString ());
 				handler (typeof(SupportPreferenceFragment), EventArgs.Empty);
 			}
 		}
@@ -142,6 +143,7 @@ namespace SupportPreference
 			base.OnDestroy ();
 		
 			PreferenceManagerCompat.DispatchActivityDestroy (mPreferenceManager);
+			ActivityDestroy ();
 		}
 
 

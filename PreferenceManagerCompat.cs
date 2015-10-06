@@ -56,7 +56,7 @@ namespace SupportPreference
 		{
 			try {
 				Class cl = Java.Lang.Class.FromType (typeof(PreferenceManager));
-				Constructor c = cl.GetConstructor (Class.FromType (typeof(Activity)), Java.Lang.Integer.Type);
+				Constructor c = cl.GetDeclaredConstructor (Class.FromType (typeof(Activity)), Java.Lang.Integer.Type);
 				c.Accessible = true;
 				return (PreferenceManager)c.NewInstance (activity, firstRequestCode);
 			} catch (System.Exception e) {
