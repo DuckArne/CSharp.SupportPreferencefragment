@@ -16,3 +16,4 @@
 /Users/mats/Projects/SupportPreference/obj/Debug/SupportPreference.dll
 /Users/mats/Projects/SupportPreference/obj/Debug/SupportPreference.dll.mdb
 /Users/mats/Projects/SupportPreference/bin/Debug/Xamarin.Android.Support.v4.dll
+/Users/mats/Projects/SupportPreference/obj/Debug/MonoAndroid,Version=v6.0.AssemblyAttribute.cs
