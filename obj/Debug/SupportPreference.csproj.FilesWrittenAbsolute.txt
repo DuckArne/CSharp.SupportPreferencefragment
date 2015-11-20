@@ -1,4 +1,4 @@
-/Users/mats/Projects/SupportPreference/obj/Debug/MonoAndroid,Version=v5.1.AssemblyAttribute.cs
+/Users/mats/Projects/SupportPreference/obj/Debug/MonoAndroid,Version=v6.0.AssemblyAttribute.cs
 /Users/mats/Projects/SupportPreference/obj/Debug/SupportPreference.obj.Debug.__AndroidLibraryProjects__.zip
 /Users/mats/Projects/SupportPreference/bin/Debug/SupportPreference.dll.mdb
 /Users/mats/Projects/SupportPreference/bin/Debug/SupportPreference.dll
@@ -16,4 +16,3 @@
 /Users/mats/Projects/SupportPreference/obj/Debug/SupportPreference.dll
 /Users/mats/Projects/SupportPreference/obj/Debug/SupportPreference.dll.mdb
 /Users/mats/Projects/SupportPreference/bin/Debug/Xamarin.Android.Support.v4.dll
-/Users/mats/Projects/SupportPreference/obj/Debug/MonoAndroid,Version=v6.0.AssemblyAttribute.cs

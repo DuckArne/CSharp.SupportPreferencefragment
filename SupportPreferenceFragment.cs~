@@ -290,6 +290,12 @@ namespace SupportPreference
 			return mList;
 		}
 
+		public ListView ListView {
+			get {
+				EnsureList ();
+				return mList;
+			}
+		}
 
 		private void EnsureList ()
 		{
