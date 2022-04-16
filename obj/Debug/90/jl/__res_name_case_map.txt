@@ -1,6 +1,0 @@
-values/Strings.xml;values/strings.xml
-values/dimens.xml;values/dimens.xml
-values-sw320dp/dimens.xml;values-sw320dp/dimens.xml
-values-v21/dimens.xml;values-v21/dimens.xml
-values-w720dp/dimens.xml;values-w720dp/dimens.xml
-Layout/preference_list_fragment.axml;layout/preference_list_fragment.xml
